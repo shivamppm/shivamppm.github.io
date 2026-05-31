@@ -2,200 +2,331 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>ANA Group of Institutions Bareilly Consent Form</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ANA Group of Institutions Bareilly - Consent Form</title>
 <style>
+  :root {
+    --primary-blue: #003366;
+    --secondary-blue: #0056b3;
+    --accent-color: #f39c12;
+    --bg-light: #f8f9fa;
+    --text-main: #333333;
+    --text-muted: #666666;
+  }
 
-body{
-margin:0;
-font-family:Segoe UI,Arial,sans-serif;
-background:linear-gradient(135deg,#003366,#0056b3);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-.card{
-background:white;
-width:100%;
-max-width:600px;
-border-radius:20px;
-padding:35px;
-box-shadow:0 20px 40px rgba(0,0,0,.2);
-animation:fade .8s;
-}
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    /* Animated fluid background inspired by ANA colors */
+    background: linear-gradient(-45deg, #001f3f, #003366, #0056b3, #004080);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--text-main);
+  }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:none;
-}
-}
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-.logo{
-text-align:center;
-}
+  /* Glassmorphism Card Effect */
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 550px;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3), border: 1px solid rgba(255,255,255,0.2);
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-.logo h1{
-margin:0;
-color:#003366;
-}
+  @keyframes slideUpFade {
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-.logo p{
-color:#666;
-}
+  /* Logo Section */
+  .logo-container {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .logo-container img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+  }
 
-.event{
-background:#f8f9fa;
-padding:15px;
-border-radius:10px;
-margin-top:20px;
-}
+  .logo-container svg {
+    width: 60px;
+    height: 60px;
+    fill: var(--primary-blue);
+    margin-bottom: 10px;
+  }
 
-.student{
-background:#eef6ff;
-padding:15px;
-border-radius:10px;
-margin-top:20px;
-}
+  .logo-container h1 {
+    font-size: 26px;
+    color: var(--primary-blue);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+  }
 
-.options{
-display:flex;
-gap:15px;
-margin-top:20px;
-}
+  .logo-container p {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
 
-.options label{
-flex:1;
-padding:15px;
-text-align:center;
-border:2px solid #ccc;
-border-radius:10px;
-cursor:pointer;
-}
+  /* Event Details */
+  .event-card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 5px solid var(--primary-blue);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+  }
 
-input[type=radio]{
-display:none;
-}
+  .event-card:hover {
+    transform: translateY(-2px);
+  }
 
-input[type=radio]:checked+label{
-background:#0056b3;
-color:white;
-border-color:#0056b3;
-}
+  .event-card h3 {
+    color: var(--primary-blue);
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
 
-button{
-width:100%;
-margin-top:25px;
-padding:15px;
-border:none;
-background:#0056b3;
-color:white;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-}
+  .event-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-button:hover{
-background:#003366;
-}
+  /* Student Info */
+  .student-info {
+    background: #eef6ff;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #d6e8fc;
+  }
 
-.message{
-margin-top:20px;
-text-align:center;
-font-weight:bold;
-}
+  .student-info p {
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--primary-blue);
+  }
+  
+  .student-info p:last-child { margin-bottom: 0; }
 
-.hidden{
-display:none;
-}
+  /* Interactive Radio Buttons */
+  .options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
 
+  .options > div { flex: 1; }
+
+  .options label {
+    display: block;
+    padding: 16px;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+  }
+
+  .options label:hover {
+    border-color: var(--secondary-blue);
+    background: #f8fbff;
+    transform: translateY(-2px);
+  }
+
+  input[type=radio] { display: none; }
+
+  input[type=radio]:checked + label {
+    background: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+    box-shadow: 0 8px 20px rgba(0, 51, 102, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Submit Button */
+  button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 51, 102, 0.2);
+  }
+
+  button:hover:not(:disabled) {
+    background: var(--secondary-blue);
+    box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Status Messages & Loading */
+  .status-message {
+    text-align: center;
+    padding: 30px 20px;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .status-message h3 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+
+  .loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .hidden { display: none !important; }
+
+  /* Mobile Friendly Adjustments */
+  @media (max-width: 480px) {
+    .card { padding: 25px 20px; }
+    .options { flex-direction: column; gap: 10px; }
+    .logo-container h1 { font-size: 22px; }
+    .event-card h3 { font-size: 16px; }
+  }
 </style>
 </head>
-
 <body>
 
 <div class="card">
+  
+  <div class="logo-container">
+    <!-- SVGs are great because they load instantly and look sharp on mobile -->
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3L1 9L4 10.63V17C4 18.66 7.58 20 12 20C16.42 20 20 18.66 20 17V10.63L23 9L12 3ZM12 18C8.69 18 6 17.1 6 17V11.72L12 15L18 11.72V17C18 17.1 15.31 18 12 18ZM12 12.75L2.94 7.7L12 4.1L21.06 7.7L12 12.75Z"/>
+    </svg>
+    <h1>ANA Group of Institutions</h1>
+    <p>Fairwell 2026 • Consent Portal</p>
+  </div>
 
-<div class="logo">
-<h1>Fairwell 2026</h1>
-<p>Student Consent Portal</p>
-</div>
+  <div class="event-card">
+    <h3>🎓 ANA College Fairwell 2026</h3>
+    <p>📅 <strong>Date:</strong> 03 June 2026</p>
+    <p>⏰ <strong>Time:</strong> 11:00 AM</p>
+    <p>📍 <strong>Venue:</strong> ANA College Campus, Bareilly</p>
+  </div>
 
-<div class="event">
-<h3>A.N.A College of Engineering Fairwell 2026</h3>
-<p>Date: 03 June 2026</p>
-<p>Time: 11:00 AM</p>
-<p>Venue: ANA College Campus</p>
-</div>
+  <!-- Loading State -->
+  <div id="loading" class="status-message">
+    <div class="loader"></div>
+    <p style="color: var(--text-muted); font-weight: 500;">Securely loading student data...</p>
+  </div>
 
-<div id="loading">
-Loading student information...
-</div>
+  <!-- Invalid Link -->
+  <div id="invalid" class="status-message hidden">
+    <h3>⚠️ Invalid Link</h3>
+    <p style="color: var(--text-muted);">This invitation link is not valid or is missing a secure token.</p>
+  </div>
 
-<div id="invalid" class="hidden">
-<h3>Invalid Link</h3>
-<p>This invitation link is not valid or is missing a token.</p>
-</div>
+  <!-- Already Submitted -->
+  <div id="already" class="status-message hidden">
+    <h3>✅ Response Recorded</h3>
+    <p style="color: var(--text-muted);">Thank you. Your RSVP has already been submitted for this event.</p>
+  </div>
 
-<div id="already" class="hidden">
-<h3>Response Already Recorded</h3>
-<p>Thank you. Your response has already been submitted.</p>
-</div>
+  <!-- Main Form Area -->
+  <div id="formSection" class="hidden">
+    
+    <div class="student-info">
+      <p><strong>Institution:</strong> <span id="college"></span></p>
+      <p><strong>Student Name:</strong> <span id="student"></span></p>
+    </div>
 
-<div id="formSection" class="hidden">
+    <form id="consentForm">
+      <p style="margin-bottom: 12px; font-weight: 600; color: var(--primary-blue); text-align: center;">Will you be attending the Farewell?</p>
+      <div class="options">
+        <div>
+          <input id="yes" type="radio" name="response" value="Yes" required>
+          <label for="yes">Yes, I will attend</label>
+        </div>
+        <div>
+          <input id="no" type="radio" name="response" value="No">
+          <label for="no">No, I cannot</label>
+        </div>
+      </div>
+      <button type="submit" id="submitBtn">Submit Secure Response</button>
+    </form>
+    
+  </div>
 
-<div class="student">
-<p><strong>College:</strong> <span id="college"></span></p>
-<p><strong>Student:</strong> <span id="student"></span></p>
-</div>
-
-<form id="consentForm">
-
-<div class="options">
-
-<div>
-<input id="yes" type="radio" name="response" value="Yes" required>
-<label for="yes">YES</label>
-</div>
-
-<div>
-<input id="no" type="radio" name="response" value="No">
-<label for="no">NO</label>
-</div>
-
-</div>
-
-<button type="submit">
-Submit Response
-</button>
-
-</form>
-
-</div>
-
-<div id="message" class="message"></div>
+  <!-- Post-Submit Message -->
+  <div id="message" class="status-message hidden"></div>
 
 </div>
 
 <script>
-
-// FIXED: Removed the trailing semicolon inside the quotes
+// Make sure this matches your deployed Web App URL exactly!
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjKmJ0ju_WV2XZDU3-anPTqH_0fa3pYM53wbl8yNTdAL8QUq1ySjXR0h5RoeSi45C5/exec";
-
 const token = new URLSearchParams(location.search).get("token");
 
 async function loadStudent(){
   if (!token) {
-    document.getElementById("loading").style.display = "none";
+    document.getElementById("loading").classList.add("hidden");
     document.getElementById("invalid").classList.remove("hidden");
     return;
   }
@@ -204,35 +335,41 @@ async function loadStudent(){
     const res = await fetch(WEB_APP_URL + "?token=" + token);
     const data = await res.json();
 
-    document.getElementById("loading").style.display = "none";
+    document.getElementById("loading").classList.add("hidden");
 
     if(!data.found){
       document.getElementById("invalid").classList.remove("hidden");
       return;
     }
 
-    if(data.status == "Submitted" || data.status == "already"){
+    if(data.status === "Submitted" || data.status === "already"){
       document.getElementById("already").classList.remove("hidden");
       return;
     }
 
     document.getElementById("college").innerText = data.college;
     document.getElementById("student").innerText = data.student;
-    document.getElementById("formSection").classList.remove("hidden");
+    
+    // Smooth fade in for the form
+    const formSection = document.getElementById("formSection");
+    formSection.classList.remove("hidden");
+    formSection.style.animation = "fadeIn 0.6s ease";
+    
   } catch (error) {
     console.error("Error loading student:", error);
-    document.getElementById("loading").innerText = "Error loading data. Please check your connection.";
+    document.getElementById("loading").innerHTML = "<h3>❌ Connection Error</h3><p>Could not connect to the server. Please check your internet and try again.</p>";
   }
 }
 
+// Start loading immediately
 loadStudent();
 
+// Handle form submission
 document.getElementById("consentForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
-  // Show a submitting message to prevent double-clicks
-  const submitButton = document.querySelector('button[type="submit"]');
-  submitButton.innerText = "Submitting...";
+  const submitButton = document.getElementById("submitBtn");
+  submitButton.innerHTML = '<span style="display:flex; align-items:center; justify-content:center; gap:10px;"><div class="loader" style="width:20px; height:20px; border-width:3px; margin:0;"></div> Submitting...</span>';
   submitButton.disabled = true;
 
   const response = document.querySelector('input[name="response"]:checked').value;
@@ -240,7 +377,6 @@ document.getElementById("consentForm").addEventListener("submit", async function
   try {
     const res = await fetch(WEB_APP_URL, {
       method: "POST",
-      // FIXED: Use text/plain to avoid CORS preflight failures
       headers: {
         "Content-Type": "text/plain;charset=utf-8"
       },
@@ -251,23 +387,27 @@ document.getElementById("consentForm").addEventListener("submit", async function
     });
 
     const result = await res.json();
+    const msgDiv = document.getElementById("message");
 
-    if(result.status == "success"){
-      document.getElementById("message").innerHTML = "✅ Thank you. Your response has been recorded.";
-      document.getElementById("consentForm").style.display = "none";
+    document.getElementById("consentForm").style.display = "none";
+    msgDiv.classList.remove("hidden");
+
+    if(result.status === "success"){
+      msgDiv.innerHTML = "<h3>🎉 Thank You!</h3><p style='color:var(--text-muted)'>Your response has been successfully recorded.</p>";
     } else {
-      document.getElementById("message").innerHTML = "⚠ Response already submitted or invalid link.";
-      submitButton.innerText = "Submit Response";
-      submitButton.disabled = false;
+      msgDiv.innerHTML = "<h3>⚠️ Already Recorded</h3><p style='color:var(--text-muted)'>It looks like a response was already submitted for this link.</p>";
     }
   } catch (error) {
     console.error("Error submitting form:", error);
-    document.getElementById("message").innerHTML = "❌ Error submitting response. Please try again.";
-    submitButton.innerText = "Submit Response";
+    const msgDiv = document.getElementById("message");
+    msgDiv.classList.remove("hidden");
+    msgDiv.innerHTML = "<h3>❌ Submission Error</h3><p style='color:var(--text-muted)'>Something went wrong. Please try refreshing the page.</p>";
+    
+    // Reset button so they can try again
+    submitButton.innerText = "Submit Secure Response";
     submitButton.disabled = false;
   }
 });
-
 </script>
 
 </body>
