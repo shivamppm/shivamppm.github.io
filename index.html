@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ANA Group of Institutions Bareilly Consent Form</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI,Arial,sans-serif;
+background:linear-gradient(135deg,#003366,#0056b3);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.card{
+background:white;
+width:100%;
+max-width:600px;
+border-radius:20px;
+padding:35px;
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+animation:fade .8s;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.logo{
+text-align:center;
+}
+
+.logo h1{
+margin:0;
+color:#003366;
+}
+
+.logo p{
+color:#666;
+}
+
+.event{
+background:#f8f9fa;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+
+.student{
+background:#eef6ff;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+
+.options{
+display:flex;
+gap:15px;
+margin-top:20px;
+}
+
+.options label{
+flex:1;
+padding:15px;
+text-align:center;
+border:2px solid #ccc;
+border-radius:10px;
+cursor:pointer;
+}
+
+input[type=radio]{
+display:none;
+}
+
+input[type=radio]:checked+label{
+background:#0056b3;
+color:white;
+border-color:#0056b3;
+}
+
+button{
+width:100%;
+margin-top:25px;
+padding:15px;
+border:none;
+background:#0056b3;
+color:white;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#003366;
+}
+
+.message{
+margin-top:20px;
+text-align:center;
+font-weight:bold;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">
+<h1>Fairwell 2026</h1>
+<p>Student Consent Portal</p>
+</div>
+
+<div class="event">
+<h3>A.N.A College of Engineering Fairwell 2026</h3>
+<p>Date: 03 June 2026</p>
+<p>Time: 11:00 AM</p>
+<p>Venue: ANA College Campus</p>
+</div>
+
+<div id="loading">
+Loading student information...
+</div>
+
+<div id="invalid" class="hidden">
+<h3>Invalid Link</h3>
+<p>This invitation link is not valid or is missing a token.</p>
+</div>
+
+<div id="already" class="hidden">
+<h3>Response Already Recorded</h3>
+<p>Thank you. Your response has already been submitted.</p>
+</div>
+
+<div id="formSection" class="hidden">
+
+<div class="student">
+<p><strong>College:</strong> <span id="college"></span></p>
+<p><strong>Student:</strong> <span id="student"></span></p>
+</div>
+
+<form id="consentForm">
+
+<div class="options">
+
+<div>
+<input id="yes" type="radio" name="response" value="Yes" required>
+<label for="yes">YES</label>
+</div>
+
+<div>
+<input id="no" type="radio" name="response" value="No">
+<label for="no">NO</label>
+</div>
+
+</div>
+
+<button type="submit">
+Submit Response
+</button>
+
+</form>
+
+</div>
+
+<div id="message" class="message"></div>
+
+</div>
+
+<script>
+
+// FIXED: Removed the trailing semicolon inside the quotes
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjKmJ0ju_WV2XZDU3-anPTqH_0fa3pYM53wbl8yNTdAL8QUq1ySjXR0h5RoeSi45C5/exec";
+
+const token = new URLSearchParams(location.search).get("token");
+
+async function loadStudent(){
+  if (!token) {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("invalid").classList.remove("hidden");
+    return;
+  }
+
+  try {
+    const res = await fetch(WEB_APP_URL + "?token=" + token);
+    const data = await res.json();
+
+    document.getElementById("loading").style.display = "none";
+
+    if(!data.found){
+      document.getElementById("invalid").classList.remove("hidden");
+      return;
+    }
+
+    if(data.status == "Submitted" || data.status == "already"){
+      document.getElementById("already").classList.remove("hidden");
+      return;
+    }
+
+    document.getElementById("college").innerText = data.college;
+    document.getElementById("student").innerText = data.student;
+    document.getElementById("formSection").classList.remove("hidden");
+  } catch (error) {
+    console.error("Error loading student:", error);
+    document.getElementById("loading").innerText = "Error loading data. Please check your connection.";
+  }
+}
+
+loadStudent();
+
+document.getElementById("consentForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  // Show a submitting message to prevent double-clicks
+  const submitButton = document.querySelector('button[type="submit"]');
+  submitButton.innerText = "Submitting...";
+  submitButton.disabled = true;
+
+  const response = document.querySelector('input[name="response"]:checked').value;
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST",
+      // FIXED: Use text/plain to avoid CORS preflight failures
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify({
+        token: token,
+        response: response
+      })
+    });
+
+    const result = await res.json();
+
+    if(result.status == "success"){
+      document.getElementById("message").innerHTML = "✅ Thank you. Your response has been recorded.";
+      document.getElementById("consentForm").style.display = "none";
+    } else {
+      document.getElementById("message").innerHTML = "⚠ Response already submitted or invalid link.";
+      submitButton.innerText = "Submit Response";
+      submitButton.disabled = false;
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    document.getElementById("message").innerHTML = "❌ Error submitting response. Please try again.";
+    submitButton.innerText = "Submit Response";
+    submitButton.disabled = false;
+  }
+});
+
+</script>
+
+</body>
+</html>
