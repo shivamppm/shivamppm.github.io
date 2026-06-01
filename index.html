@@ -43,8 +43,9 @@
   /* Glassmorphism Card Effect */
   .card {
     /* Updated to match your exact GIF background shade */
-    background: #d0ced1; 
-    
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     width: 100%;
     max-width: 550px;
     border-radius: 24px;
@@ -69,6 +70,7 @@
     max-width: 120px;
     height: auto;
     margin-bottom: 15px;
+    mix-blend-mode: multiply; /* ADD THIS LINE */
   }
 
   .logo-container svg {
