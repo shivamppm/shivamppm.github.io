@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ANA Group of Institutions - Portal</title>
+<style>
+  :root {
+    --primary-blue: #003366;
+    --secondary-blue: #0056b3;
+    --accent-color: #f39c12;
+    --text-main: #333333;
+    --text-muted: #666666;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(-45deg, #001f3f, #003366, #0056b3, #004080);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--text-main);
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 550px;
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .logo-container { text-align: center; margin-bottom: 20px; }
+  .logo-container img { max-width: 110px; height: auto; mix-blend-mode: multiply; }
+  .logo-container h1 { font-size: 24px; color: var(--primary-blue); font-weight: 800; }
+  .logo-container p { color: var(--text-muted); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+
+  .student-info { background: #eef6ff; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #d6e8fc; text-align: center; }
+  .student-info p { font-size: 15px; color: var(--primary-blue); font-weight: 600; }
+
+  /* Star Rating Engine */
+  .feedback-container { text-align: center; margin-bottom: 20px; }
+  .feedback-container p { font-weight: 600; color: var(--primary-blue); margin-bottom: 10px; }
+  .star-rating { display: flex; flex-direction: row-reverse; justify-content: center; gap: 6px; }
+  .star-rating input { display: none; }
+  .star-rating label { font-size: 42px; color: #e0e0e0; cursor: pointer; transition: color 0.2s, transform 0.2s; }
+  .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label { color: var(--accent-color); }
+  .star-rating label:hover { transform: scale(1.15); }
+
+  /* Modern Form Groups */
+  .form-group { margin-bottom: 15px; text-align: left; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--primary-blue); margin-bottom: 5px; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px;
+    font-size: 14px; transition: border-color 0.3s; font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--secondary-blue); }
+  .form-row { display: flex; gap: 12px; }
+  .form-row .form-group { flex: 1; }
+
+  button {
+    width: 100%; padding: 15px; border: none; background: var(--primary-blue);
+    color: white; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+  }
+  button:hover:not(:disabled) { background: var(--secondary-blue); transform: translateY(-2px); }
+  button:disabled { background: #cccccc; cursor: not-allowed; }
+
+  .alumni-shortcut {
+    margin-top: 20px; padding-top: 15px; border-top: 1px dashed #e0e0e0; text-align: center;
+  }
+  .alumni-link { color: var(--secondary-blue); font-weight: 700; text-decoration: none; font-size: 14px; cursor: pointer; }
+  .alumni-link:hover { text-decoration: underline; }
+
+  .status-message { text-align: center; padding: 25px 15px; }
+  .status-message h3 { color: var(--primary-blue); margin-bottom: 8px; }
+  .loader { width: 35px; height: 35px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px auto; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .hidden { display: none !important; }
+
+  @media (max-width: 480px) {
+    .card { padding: 25px 15px; }
+    .form-row { flex-direction: column; gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo-container">
+    <img src="logo.gif" alt="ANA Logo">
+    <h1>ANA Group of Institutions</h1>
+    <p>Campus Portal</p>
+  </div>
+
+  <!-- App States -->
+  <div id="loading" class="status-message">
+    <div class="loader"></div>
+    <p style="color: var(--text-muted);">Verifying invitation parameters...</p>
+  </div>
+
+  <div id="invalid" class="status-message hidden">
+    <h3>⚠️ Secure Token Required</h3>
+    <p style="color: var(--text-muted);">Access verification failed. Use your official link.</p>
+  </div>
+
+  <!-- REJECTION VIEW FOR NON-ATTENDEES -->
+  <div id="notInvited" class="status-message hidden">
+    <h3 style="color: #c0392b;">⛔ Access Restricted</h3>
+    <p style="color: var(--text-muted); margin-bottom: 15px;">You can't submit, you did not accept the invitation.</p>
+  </div>
+
+  <div id="already" class="status-message hidden">
+    <h3>✅ Feedback Complete</h3>
+    <p style="color: var(--text-muted);">Your experience submission has already been logged.</p>
+  </div>
+
+  <!-- FEEDBACK SURVEY FORM -->
+  <div id="feedbackSection" class="hidden">
+    <div class="student-info">
+      <p>Welcome, <span id="studentName">Student</span></p>
+    </div>
+    <form id="feedbackForm">
+      <div class="feedback-container">
+        <p>How would you rate your Farewell experience?</p>
+        <div class="star-rating">
+          <input type="radio" id="st5" name="response" value="5 Stars" required><label for="st5">★</label>
+          <input type="radio" id="st4" name="response" value="4 Stars"><label for="st4">★</label>
+          <input type="radio" id="st3" name="response" value="3 Stars"><label for="st3">★</label>
+          <input type="radio" id="st2" name="response" value="2 Stars"><label for="st2">★</label>
+          <input type="radio" id="st1" name="response" value="1 Star"><label for="st1">★</label>
+        </div>
+      </div>
+      <button type="submit" id="feedSubmitBtn">Submit Feedback</button>
+    </form>
+  </div>
+
+  <!-- ALUMNI REGISTRATION FORM -->
+  <div id="alumniSection" class="hidden">
+    <h3 style="color: var(--primary-blue); text-align: center; margin-bottom: 15px;">🎓 Alumni Network Registration</h3>
+    <form id="alumniForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="aluCourse">Course *</label>
+          <select id="aluCourse" required>
+            <option value="">-- Choose Course --</option>
+            <option value="BTech">B.Tech</option>
+            <option value="BBA">BBA</option>
+            <option value="BCA">BCA</option>
+            <option value="Diploma">Diploma</option>
+            <option value="BPharma">B.Pharma</option>
+            <option value="DPharma">D.Pharma</option>
+          </select>
+        </div>
+        <div class="form-group hidden" id="branchWrapper">
+          <label for="aluBranch">Branch *</label>
+          <select id="aluBranch">
+            <!-- Programmatically populated -->
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label for="aluRoll">Roll Number *</label><input type="text" id="aluRoll" required></div>
+        <div class="form-group"><label for="aluName">Full Name *</label><input type="text" id="aluName" required></div>
+      </div>
+      <div class="form-group"><label for="aluFather">Father's Name *</label><input type="text" id="aluFather" required></div>
+      <div class="form-row">
+        <div class="form-group"><label for="aluMobile">Mobile *</label><input type="tel" id="aluMobile" required></div>
+        <div class="form-group"><label for="aluEmail">Email Address *</label><input type="email" id="aluEmail" required></div>
+      </div>
+      
+      <div style="margin: 15px 0 10px 0; border-top: 1px solid #e0e0e0; padding-top: 10px;">
+        <p style="font-size: 12px; font-weight:700; color: var(--text-muted); margin-bottom: 8px;">PLACEMENT / CAREER DETAILS (IF APPLICABLE)</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="aluComp">Company Name</label><input type="text" id="aluComp" placeholder="e.g. Infosys"></div>
+        <div class="form-group"><label for="aluJob">Job Title</label><input type="text" id="aluJob" placeholder="e.g. Software Engineer"></div>
+      </div>
+      <div class="form-group"><label for="aluCtc">Package / CTC (LPA)</label><input type="number" step="0.1" id="aluCtc" placeholder="e.g. 4.5"></div>
+
+      <button type="submit" id="aluSubmitBtn" style="background: var(--accent-color);">Register Workspace</button>
+    </form>
+  </div>
+
+  <!-- Dynamic Success/Error Notifications -->
+  <div id="message" class="status-message hidden"></div>
+
+  <!-- Navigation Shortcut for Alumni -->
+  <div class="alumni-shortcut" id="shortcutDiv">
+    <span class="alumni-link" id="toggleAlumniView">🎓 Final Year Student? Join Alumni Registry</span>
+  </div>
+</div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjKmJ0ju_WV2XZDU3-anPTqH_0fa3pYM53wbl8yNTdAL8QUq1ySjXR0h5RoeSi45C5/exec";
+const token = new URLSearchParams(location.search).get("token");
+
+async function initPortal(){
+  if (!token) {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("invalid").classList.remove("hidden");
+    return;
+  }
+  try {
+    const res = await fetch(WEB_APP_URL + "?token=" + token);
+    const data = await res.json();
+    document.getElementById("loading").classList.add("hidden");
+
+    if(!data.found){
+      document.getElementById("invalid").classList.remove("hidden");
+      return;
+    }
+
+    // Auto-populate fields if found
+    document.getElementById("studentName").innerText = data.student;
+    document.getElementById("aluName").value = data.student;
+    document.getElementById("aluRoll").value = data.studentId || "";
+
+    // Conditional evaluation logic based on RSVP responses
+    if (!data.allowedFeedback) {
+      document.getElementById("notInvited").classList.remove("hidden");
+    } else if (data.feedbackSubmitted) {
+      document.getElementById("already").classList.remove("hidden");
+    } else {
+      document.getElementById("feedbackSection").classList.remove("hidden");
+    }
+  } catch (e) {
+    document.getElementById("loading").innerHTML = "<h3>❌ System Offline</h3><p>Server connection timeout.</p>";
+  }
+}
+
+initPortal();
+
+// Dynamic Option Population logic for BTech and Diploma programs
+document.getElementById("aluCourse").addEventListener("change", function(e) {
+  const course = e.target.value;
+  const wrapper = document.getElementById("branchWrapper");
+  const branchSelect = document.getElementById("aluBranch");
+  
+  branchSelect.innerHTML = "";
+  branchSelect.required = false;
+
+  if (course === "BTech") {
+    wrapper.classList.remove("hidden");
+    branchSelect.required = true;
+    const branches = [
+      {val: "CSE", text: "Computer Science & Engineering (CSE)"},
+      {val: "EE", text: "Electrical Engineering (EE)"},
+      {val: "ME", text: "Mechanical Engineering (ME)"},
+      {val: "ECE", text: "Electronics & Communication Engineering (ECE)"},
+      {val: "CE", text: "Civil Engineering (CE)"}
+    ];
+    branches.forEach(b => branchSelect.add(new Option(b.text, b.val)));
+  } else if (course === "Diploma") {
+    wrapper.classList.remove("hidden");
+    branchSelect.required = true;
+    const branches = [
+      {val: "Mechanical Engineering", text: "Mechanical Engineering"},
+      {val: "Civil Engineering", text: "Civil Engineering"}
+    ];
+    branches.forEach(b => branchSelect.add(new Option(b.text, b.val)));
+  } else {
+    wrapper.classList.add("hidden");
+  }
+});
+
+// View switcher mechanism
+document.getElementById("toggleAlumniView").addEventListener("click", function() {
+  document.getElementById("feedbackSection").classList.add("hidden");
+  document.getElementById("notInvited").classList.add("hidden");
+  document.getElementById("already").classList.add("hidden");
+  document.getElementById("shortcutDiv").classList.add("hidden");
+  document.getElementById("alumniSection").classList.remove("hidden");
+});
+
+// Submit Engine for Feedback Survey
+document.getElementById("feedbackForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const btn = document.getElementById("feedSubmitBtn");
+  btn.innerText = "Processing..."; btn.disabled = true;
+  const rating = document.querySelector('input[name="response"]:checked').value;
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ token: token, response: rating })
+    });
+    const result = await res.json();
+    document.getElementById("feedbackSection").style.display = "none";
+    const msg = document.getElementById("message"); msg.classList.remove("hidden");
+    
+    if(result.status === "success") {
+      msg.innerHTML = "<h3>🎉 Thank You!</h3><p>Your institutional score has been logged.</p>";
+    } else {
+      msg.innerHTML = "<h3>⚠️ Warning</h3><p>Duplicate metrics transmission detected.</p>";
+    }
+  } catch (err) {
+    btn.innerText = "Submit Feedback"; btn.disabled = false;
+  }
+});
+
+// Submit Engine for Alumni Registration
+document.getElementById("alumniForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const btn = document.getElementById("aluSubmitBtn");
+  btn.innerText = "Saving Registry..."; btn.disabled = true;
+
+  const payload = {
+    action: "alumni",
+    course: document.getElementById("aluCourse").value,
+    branch: document.getElementById("aluBranch").value || "",
+    rollNo: document.getElementById("aluRoll").value,
+    name: document.getElementById("aluName").value,
+    fathersName: document.getElementById("aluFather").value,
+    mobile: document.getElementById("aluMobile").value,
+    email: document.getElementById("aluEmail").value,
+    company: document.getElementById("aluComp").value,
+    jobTitle: document.getElementById("aluJob").value,
+    ctc: document.getElementById("aluCtc").value ? document.getElementById("aluCtc").value + " LPA" : ""
+  };
+
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    const result = await res.json();
+    document.getElementById("alumniSection").style.display = "none";
+    const msg = document.getElementById("message"); msg.classList.remove("hidden");
+
+    if (result.status === "success") {
+      msg.innerHTML = "<h3>🎓 Registration Complete</h3><p>Welcome to the ANA Group Alumni Network Alliance!</p>";
+    } else {
+      msg.innerHTML = "<h3>❌ Save Failed</h3><p>Could not push registration details. Contact admin.</p>";
+    }
+  } catch (err) {
+    btn.innerText = "Register Workspace"; btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
