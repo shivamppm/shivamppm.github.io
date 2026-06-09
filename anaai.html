@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generative AI Course — Ana College Bareilly</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Updated Palette based on the Red/Blue Bouncing Ball GIF */
+    --ink:    #0A141F;
+    --navy:   #1B3552;
+    --blue:   #3D6996;
+    --sky:    #7097C2;
+    --red:    #D12525; /* Replaced gold with the vibrant red from the GIF */
+    --cream:  #F2F6FA; /* Cooler off-white to match the blue theme */
+    --stripe: #E8EFF5;
+    --border: #C2D3E3;
+    --muted:  #5B7085;
+    --white:  #FFFFFF;
+  }
+
+  @page { size: A4 portrait; margin: 10mm; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    padding: 14px 18px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+   /* ── APPLE-STYLE SCROLL SNAPPING (STRICT JUMP) ── */
+  html {
+    scroll-snap-type: y mandatory; /* Forces the strict magnetic jump */
+    scroll-behavior: smooth;
+  }
+
+  .phase-header {
+    scroll-snap-align: start;
+    scroll-snap-stop: always; /* Forces the scroll to stop at every header, preventing skipping */
+    scroll-margin-top: 15vh;
+  }
+
+  /* Make rows ready for JS animation */
+  tbody tr {
+    opacity: 0;
+    /* Removed the translateY transform. Moving elements during scroll breaks the browser's snap calculation! */
+    transition: opacity 0.8s ease-in-out;
+  }
+ 
+  /* ── ANIMATIONS ── */
+    @keyframes prismLiquid {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes pulseRed {
+    0% { box-shadow: 0 0 0 0 rgba(209, 37, 37, 0.4); }
+    70% { box-shadow: 0 0 0 4px rgba(209, 37, 37, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(209, 37, 37, 0); }
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .college-info-wrapper {
+    display: flex;
+    flex-direction: column;   /* Changes layout from side-by-side to vertical */
+    align-items: flex-start;  /* Aligns the logo to the left with the text */
+    gap: 6px;
+  }
+
+  .logo-container {
+    width: 75px;          /* Increased width */
+    height: 55px;         /* Increased height to form a rectangle */
+    border-radius: 10px;  /* Matches the badge shape */
+    overflow: hidden;
+    border: 2px solid var(--blue);
+    flex-shrink: 0;
+    animation: float 3s ease-in-out infinite;
+    background: var(--blue);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  }
+
+  .logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.0); /* Slight scale to crop edges of GIF if needed */
+  }
+
+  .college-info { text-align: left; }
+  .college-name {
+    font-family: 'Special Elite', serif; /* Changed from Space Mono */
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--blue);
+    text-transform: uppercase;
+    line-height: 1.10;
+  }
+  .college-sub {
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+  }
+
+  .title-block { text-align: center; }
+  .badge {
+    display: inline-block;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    animation: pulseRed 2s infinite, float 4s ease-in-out infinite;
+  }
+  .course-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .course-title span { color: var(--red); }
+  .course-subtitle {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  .meta-right { text-align: right; }
+  .meta-pill {
+    display: inline-block;
+    background: var(--stripe);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: 500;
+    color: var(--blue);
+    margin: 1.5px 0;
+    transition: all 0.3s ease;
+  }
+  .meta-pill:hover {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--navy) 0%, var(--sky) 50%, var(--red) 100%);
+    border-radius: 2px;
+    margin: 6px 0;
+  }
+
+  /* ── VALUE STRIP ── */
+  .value-strip {
+    /* Iridescent liquid prism gradient */
+    background: linear-gradient(
+      115deg, 
+      rgba(255, 77, 77, 0.15), 
+      rgba(123, 31, 162, 0.15), 
+      rgba(60, 170, 222, 0.15), 
+      rgba(232, 160, 32, 0.15)
+    );
+    background-size: 200% 200%;
+    
+    /* iOS Glass blur effect */
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    
+    /* Shining glass edges */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+    
+    /* Deep shadow + inner light reflection */
+    box-shadow: 
+      0 12px 32px rgba(10, 20, 31, 0.2), 
+      inset 0 0 24px rgba(255, 255, 255, 0.2);
+      
+    border-radius: 12px;
+    padding: 9px 14px;
+    margin-bottom: 9px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+    opacity: 0;
+    /* Combines your fade-in with the continuous liquid gradient shifting */
+    animation: fadeInUp 0.6s ease-out 0.2s forwards, prismLiquid 8s ease infinite;
+  }
+
+    .value-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 900;
+    color: #990000; /* Deep, rich red for high contrast */
+    text-shadow: none; /* Removed the neon glow */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    border-right: 1px solid rgba(0, 0, 0, 0.15); /* Darkened the divider line */
+    padding-right: 12px;
+  }
+  
+  .value-text {
+    font-size: 10px; /* Slightly larger for better readability */
+    font-weight: 500;
+    color: #121A2F; /* Very dark navy blue/charcoal */
+    text-shadow: none; /* Removed the white glow */
+    line-height: 1.6;
+  }
+  
+  .value-text strong { 
+    color: #0044CC; /* Vibrant, dark blue to stand out */
+    font-weight: 800;
+    text-shadow: none; /* Removed the neon glow */
+  }
+
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 9px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.4s forwards;
+  }
+  .stat-box {
+    flex: 1;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-top: 3px solid var(--blue);
+    border-radius: 5px;
+    padding: 5px 8px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 8px;
+    color: var(--muted);
+    margin-top: 1px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead tr {
+    background: var(--navy);
+  }
+    thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 7px 9px;
+    text-align: left;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    /* Sticky properties */
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  thead th:last-child { border-right: none; }
+  thead th.center { text-align: center; }
+
+  tbody tr { transition: background-color 0.2s ease; }
+  tbody tr:nth-child(even) { background: var(--stripe); }
+  tbody tr:nth-child(odd)  { background: var(--white); }
+  tbody tr:hover { background: #D6E4F0; }
+
+  tbody td {
+    padding: 5px 9px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+    font-size: 9px;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:last-child { border-right: none; }
+
+  .sno {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 9.5px;
+    color: var(--white);
+    background: var(--blue);
+    text-align: center;
+    width: 30px;
+    border-radius: 3px;
+    padding: 3px 0;
+    display: inline-block;
+    line-height: 1;
+  }
+  .sno-cell { text-align: center; width: 42px; }
+
+  .lecture-title {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+
+  /* phase accent left border */
+  .phase-1 td:first-child { border-left: 3px solid var(--sky); }
+  .phase-2 td:first-child { border-left: 3px solid #1A7A4A; }
+  .phase-3 td:first-child { border-left: 3px solid #9C27B0; }
+  .phase-4 td:first-child { border-left: 3px solid var(--red); }
+
+  .phase-header td {
+    background: var(--stripe) !important;
+    padding: 4px 9px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-header-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .ph1 { color: var(--blue); }
+  .ph2 { color: #1A7A4A; }
+  .ph3 { color: #7B1FA2; }
+  .ph4 { color: var(--red); }
+
+  .tag {
+    display: inline-block;
+    font-size: 7px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 2px;
+    letter-spacing: 0.4px;
+  }
+  .tag-lab  { background: #E3F2FD; color: #1565C0; }
+  .tag-demo { background: #F3E5F5; color: #6A1B9A; }
+  .tag-proj { background: #FFEBEE; color: var(--red); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: start;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.8s forwards;
+  }
+  .footer-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 6px 9px;
+    transition: transform 0.2s ease;
+  }
+  .footer-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .footer-box-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3px;
+  }
+  .footer-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer-box ul li {
+    font-size: 8px;
+    color: var(--muted);
+    padding: 1.5px 0;
+    padding-left: 10px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .footer-box ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-size: 7px;
+  }
+
+  .bottom-bar {
+    margin-top: 7px;
+    background: var(--navy);
+    border-radius: 4px;
+    padding: 5px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 1s forwards;
+  }
+  .bottom-bar-text {
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px;
+  }
+  .bottom-bar-text strong { color: #FF9999; }
+
+  /* Disable animations for printing */
+  @media print {
+    body { padding: 0; background: white; }
+    * { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .value-strip, .stat-box, .table-wrap, .footer-box, .logo-container { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .logo-container { box-shadow: none; border-color: var(--blue); }
+  }
+    /* Prevent text wrapping inside the pills */
+  .meta-pill {
+    white-space: nowrap;
+  }
+
+  /* ── MOBILE RESPONSIVENESS ── */
+  @media (max-width: 768px) {
+    /* Stack the header vertically */
+    .header {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 16px;
+    }
+    
+    /* Center the college info and logo */
+    .college-info-wrapper {
+      align-items: center;
+    }
+    .college-info {
+      text-align: center;
+    }
+
+    /* Arrange pills horizontally centered */
+    .meta-right > div {
+      flex-direction: row !important;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center !important;
+      gap: 4px;
+    }
+
+    /* Stack the Value Strip */
+    .value-strip {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .value-label {
+      border-right: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      padding-right: 0;
+      padding-bottom: 8px;
+    }
+
+    /* Wrap the stats boxes into rows */
+    .stats-row {
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      flex: 1 1 30%; /* 3 boxes per row */
+      min-width: 80px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="college-info-wrapper">
+    <div class="logo-container">
+      <img src="alogo.gif" alt="Animated Bouncing Ball Logo">
+    </div>
+    <div class="college-info">
+      <div class="college-name">A.n.a Group of Institutions<br>Bareilly</div>
+      <div class="college-sub">Department of Computer Science & Management</div>
+      <div class="college-sub" style="margin-top:3px;">BBA &nbsp;•&nbsp; BCA &nbsp;•&nbsp; B.Tech Polytechnic</div>
+    </div>
+  </div>
+
+  <div class="title-block">
+    <div class="badge">Value Added Course</div>
+    <div class="course-title">Generative <span>AI</span></div>
+    <div class="course-subtitle">From Curiosity to Capability — The Intelligent Edge for Every Student</div>
+  </div>
+
+  <div class="meta-right">
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+      <div class="meta-pill">📅 Semester I &nbsp;|&nbsp; 2025-26</div>
+      <div class="meta-pill">⏱️ 20 Lectures &nbsp;×&nbsp; 1 Hour</div>
+      <div class="meta-pill">🏫 AI Laboratory ANA Building</div>
+      <div class="meta-pill">🎓 Non-Credit &nbsp;|&nbsp; Certificate</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="value-strip">
+  <div class="value-label">Why This Course?</div>
+  <div class="value-text">
+    In the next 5 years, <strong>every job</strong> — from business to engineering to media — will demand AI literacy.
+    This course gives you a <strong>practical, hands-on skillset</strong> in Generative AI: the technology behind ChatGPT, DALL-E, GitHub Copilot, and Gemini.
+    You will learn to <strong>use AI tools, build chatbots, create content, and prompt AI like an expert</strong> — skills that make your resume stand out before you even graduate.
+    No prior coding required. Suitable for <strong>all streams.</strong>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-num">20</div><div class="stat-label">Lecture Hours</div></div>
+  <div class="stat-box"><div class="stat-num">12+</div><div class="stat-label">AI Tools Explored</div></div>
+  <div class="stat-box"><div class="stat-num">8</div><div class="stat-label">Hands-On Labs</div></div>
+  <div class="stat-box"><div class="stat-num">1</div><div class="stat-label">Capstone Project</div></div>
+  <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Coding Required</div></div>
+  <div class="stat-box" style="border-top-color:var(--red);"><div class="stat-num" style="color:var(--red);">✓</div><div class="stat-label">Certificate Awarded</div></div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th class="center" style="width:42px;">S.No.</th>
+      <th style="width:195px;">Lecture Title</th>
+      <th>Key Points Covered</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr class="phase-header">
+      <td colspan="3"><span class="phase-header-text ph1">◈ &nbsp;Phase 1 &nbsp;— &nbsp;AI Foundations &nbsp;(Lectures 1–5)</span></td>
+    </tr>
+
+    <tr class="phase-1">
+      <td class="sno-cell"><span class="sno">01</span></td>
+      <td><div class="lecture-title">Welcome to the World of AI</div></td>
+      <td>What is Artificial Intelligence? History from 1950 to ChatGPT · Narrow vs General vs Super AI · AI vs Human intelligence · Real-life AI examples students already use daily</td>
+    </tr>
+    <tr class="phase-1">
+      <td class="sno-cell"><span class="sno">02</span></td>
+      <td><div class="lecture-title">AI All Around You</div></td>
+      <td>AI in smartphones, streaming, maps, banking & shopping · Google Assistant, Alexa, Siri · How Swiggy, Zomato & Flipkart use AI · AI economy: jobs, industries & India's AI roadmap</td>
+    </tr>
+    <tr class="phase-1">
+      <td class="sno-cell"><span class="sno">03</span></td>
+      <td><div class="lecture-title">How Machines Learn</div></td>
+      <td>What is Machine Learning? · Supervised, Unsupervised & Reinforcement Learning with everyday analogies · Role of training data · <span class="tag tag-lab">LAB</span> Teachable Machine: train a gesture model in browser</td>
+    </tr>
+    <tr class="phase-1">
+      <td class="sno-cell"><span class="sno">04</span></td>
+      <td><div class="lecture-title">The Generative AI Revolution</div></td>
+      <td>What makes GenAI different from traditional AI · Large Language Models (LLMs) explained simply · Transformers & attention mechanism · GANs: the artist vs critic analogy · Real outputs: text, image, audio, code</td>
+    </tr>
+    <tr class="phase-1">
+      <td class="sno-cell"><span class="sno">05</span></td>
+      <td><div class="lecture-title">Your AI Toolkit — Top Platforms</div></td>
+      <td>ChatGPT · Google Gemini · Microsoft Copilot · Claude · Perplexity AI · Strengths of each tool · <span class="tag tag-lab">LAB</span> Race: same 3 tasks across 3 platforms — compare results · Understanding AI hallucination</td>
+    </tr>
+
+    <tr class="phase-header">
+      <td colspan="3"><span class="phase-header-text ph2">◈ &nbsp;Phase 2 &nbsp;— &nbsp;Mastering Prompts & Content (Lectures 6–10)</span></td>
+    </tr>
+
+    <tr class="phase-2">
+      <td class="sno-cell"><span class="sno">06</span></td>
+      <td><div class="lecture-title">The Art of Prompting — Part 1</div></td>
+      <td>Why prompting is the most valuable AI skill · CLEAR Framework: Context, Length, Examples, Audience, Role · Zero-shot vs Few-shot prompting · Bad prompt vs good prompt — live comparison · <span class="tag tag-lab">LAB</span> Fix-the-Prompt activity</td>
+    </tr>
+    <tr class="phase-2">
+      <td class="sno-cell"><span class="sno">07</span></td>
+      <td><div class="lecture-title">The Art of Prompting — Part 2</div></td>
+      <td>Chain-of-Thought prompting · Persona & role-play prompting · Format control: tables, bullets, JSON · Constraint prompting · <span class="tag tag-lab">LAB</span> Prompt Battle tournament — class competition for best output</td>
+    </tr>
+    <tr class="phase-2">
+      <td class="sno-cell"><span class="sno">08</span></td>
+      <td><div class="lecture-title">AI for Writing & Text Creation</div></td>
+      <td>Blog posts, emails, reports, ad copy · Jasper, Copy.ai, Notion AI · AI for academic writing: summarizing, note-making, essay outlines · <span class="tag tag-demo">DEMO</span> Write a full blog post in 60 seconds · Responsible use: attribution & verification</td>
+    </tr>
+    <tr class="phase-2">
+      <td class="sno-cell"><span class="sno">09</span></td>
+      <td><div class="lecture-title">AI Art — Images, Design & Posters</div></td>
+      <td>Text-to-image: DALL-E, Bing Image Creator, Adobe Firefly, Midjourney · Prompt formula for images · Style, mood & composition control · <span class="tag tag-lab">LAB</span> Generate a TechFest poster for Ana College · AI image ethics: copyright & disclosure</td>
+    </tr>
+    <tr class="phase-2">
+      <td class="sno-cell"><span class="sno">10</span></td>
+      <td><div class="lecture-title">AI Audio, Music & Video</div></td>
+      <td>Text-to-speech with ElevenLabs & TTSMaker · AI music generation: Suno, Udio · AI video: Runway ML, Pika Labs, Sora · <span class="tag tag-lab">LAB</span> Convert college announcement to audio clip · Deepfakes: how they work and why they're dangerous</td>
+    </tr>
+
+    <tr class="phase-header">
+      <td colspan="3"><span class="phase-header-text ph3">◈ &nbsp;Phase 3 &nbsp;— &nbsp;Building with AI (Lectures 11–15)</span></td>
+    </tr>
+
+    <tr class="phase-3">
+      <td class="sno-cell"><span class="sno">11</span></td>
+      <td><div class="lecture-title">Build a Chatbot — Part 1</div></td>
+      <td>How chatbots work: rule-based vs NLP-powered · Intents, entities & utterances explained · Chatbot design: conversation flow & fallback · <span class="tag tag-demo">DEMO</span> Building live on Tidio/Botpress · Platform options: Tidio, Botpress, Landbot, Dialogflow</td>
+    </tr>
+    <tr class="phase-3">
+      <td class="sno-cell"><span class="sno">12</span></td>
+      <td><div class="lecture-title">Build a Chatbot — Part 2</div></td>
+      <td><span class="tag tag-lab">LAB</span> Build "Ana College HelpBot" with 3 intents: admissions, library, timetable · Add greeting + fallback · Test partner's bot with 10 questions · Bug Report Card: find and suggest fixes for failures</td>
+    </tr>
+    <tr class="phase-3">
+      <td class="sno-cell"><span class="sno">13</span></td>
+      <td><div class="lecture-title">AI in Healthcare & Education</div></td>
+      <td>AI diagnostics: X-ray & MRI analysis · Drug discovery & genomics · Wearables & predictive health · Niramai India case study · AI tutors, personalized learning, adaptive tests · Khan Academy & Duolingo AI systems</td>
+    </tr>
+    <tr class="phase-3">
+      <td class="sno-cell"><span class="sno">14</span></td>
+      <td><div class="lecture-title">AI in Business, E-Commerce & Finance</div></td>
+      <td>Recommendation engines: how Flipkart/Amazon suggest products · Dynamic pricing algorithms · AI fraud detection in banking · Customer sentiment analysis · <span class="tag tag-demo">DEMO</span> Live product recommendation system walkthrough · AI for startup ideas</td>
+    </tr>
+    <tr class="phase-3">
+      <td class="sno-cell"><span class="sno">15</span></td>
+      <td><div class="lecture-title">AI in Robotics & Smart Cities</div></td>
+      <td>Sensors, actuators & autonomous control · Self-driving cars: 5 levels of autonomy · Warehouse robots: Amazon Kiva · Smart city AI: Bengaluru traffic ATCS, smart energy grids · ISRO Vyommitra · <span class="tag tag-lab">LAB</span> Design a security robot decision tree</td>
+    </tr>
+
+    <tr class="phase-header">
+      <td colspan="3"><span class="phase-header-text ph4">◈ &nbsp;Phase 4 &nbsp;— &nbsp;Responsibility, Safety & Careers (Lectures 16–20)</span></td>
+    </tr>
+
+    <tr class="phase-4">
+      <td class="sno-cell"><span class="sno">16</span></td>
+      <td><div class="lecture-title">AI Ethics & Algorithmic Bias</div></td>
+      <td>What is AI bias? How biased data creates biased AI · Amazon hiring AI failure · COMPAS criminal risk score controversy · MIT facial recognition accuracy gaps · FATE Framework: Fairness, Accountability, Transparency, Ethics · Who is responsible when AI harms?</td>
+    </tr>
+    <tr class="phase-4">
+      <td class="sno-cell"><span class="sno">17</span></td>
+      <td><div class="lecture-title">AI Responsibility & Regulation</div></td>
+      <td><span class="tag tag-lab">LAB</span> Debate: Should AI be used in college admissions? · Deepfakes & disinformation in India · India's Digital Personal Data Protection Act · EU AI Act overview · UNESCO AI Ethics framework · Student: propose 3 ethical rules for AI in your domain</td>
+    </tr>
+    <tr class="phase-4">
+      <td class="sno-cell"><span class="sno">18</span></td>
+      <td><div class="lecture-title">AI Safety & Future Risks</div></td>
+      <td>Adversarial attacks: fooling AI with stickers on stop signs · The AI alignment problem (paperclip thought experiment) · Famous AI failures & lessons · AI governance: who controls the most powerful AI? · Existential risk debate · OpenAI, Anthropic & safety research</td>
+    </tr>
+    <tr class="phase-4">
+      <td class="sno-cell"><span class="sno">19</span></td>
+      <td><div class="lecture-title">AI Careers & Your Learning Roadmap</div></td>
+      <td>10+ AI career paths mapped to BBA / BCA / B.Tech streams · ML Engineer, Data Scientist, AI Product Manager, Prompt Engineer, AI Ethics Officer · Free resources: Kaggle, NPTEL, Coursera, Hugging Face · <span class="tag tag-lab">LAB</span> Build your personal 6-month AI learning roadmap · Indian AI companies: Sarvam AI, Krutrim, Bhashini</td>
+    </tr>
+    <tr class="phase-4">
+      <td class="sno-cell"><span class="sno">20</span></td>
+      <td><div class="lecture-title">🏆 Capstone Project Showcase</div></td>
+      <td><span class="tag tag-proj">PROJECT</span> Students present one of: AI Chatbot · AI Content Package (text+image+audio) · Prompt Portfolio · AI Case Study (India) · Trained ML Model · 3-minute presentation · Peer judging rubric · Certificate of Completion awarded · Group photo</td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<div class="footer">
+  <div class="footer-box">
+    <div class="footer-box-title">🛠️ Free Tools Used</div>
+    <ul>
+      <li>ChatGPT / Google Gemini / Copilot</li>
+      <li>Bing Image Creator / Adobe Firefly</li>
+      <li>Teachable Machine (Google)</li>
+      <li>Tidio / Botpress (Chatbot builder)</li>
+      <li>TTSMaker / ElevenLabs (Audio)</li>
+      <li>Suno.ai (AI Music)</li>
+    </ul>
+  </div>
+  <div class="footer-box">
+    <div class="footer-box-title">📊 Assessment (100 Marks)</div>
+    <ul>
+      <li>Attendance & Participation — 20</li>
+      <li>Lab Activities (Best 8 of 12) — 40</li>
+      <li>Mid-Course Mini Project — 15</li>
+      <li>Final Capstone Showcase — 25</li>
+      <li>Certificate awarded on completion</li>
+    </ul>
+  </div>
+  <div class="footer-box">
+    <div class="footer-box-title">✅ You Will Be Able To</div>
+    <ul>
+      <li>Use 10+ AI tools confidently</li>
+      <li>Build and deploy a working chatbot</li>
+      <li>Generate AI text, images & audio</li>
+      <li>Write expert-level prompts</li>
+      <li>Discuss AI ethics & safety</li>
+      <li>Plan your AI career path</li>
+    </ul>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  <div class="bottom-bar-text">Ana Group of Institutions, Bareilly &nbsp;|&nbsp; AI Laboratory &nbsp;|&nbsp; Academic Year 2026–27</div>
+  <div class="bottom-bar-text"><strong>No prior coding or AI knowledge required.</strong> Open to all students of BBA · BCA · B.Tech Polytechnic.</div>
+  <div class="bottom-bar-text">Queries: AI Department &nbsp;|&nbsp; anacollege.org</div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -15% 0px", // Fades in slightly before hitting the bottom
+      threshold: 0.1
+    };
+
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Only fade in, no sliding, to preserve the strict scroll snap math
+          entry.target.style.opacity = "1";
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+      scrollObserver.observe(row);
+    });
+  });
+</script>
+</body>
+</html>
