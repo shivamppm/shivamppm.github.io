@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Industrial Training Report — AKTU Format Guide | ANA College, Bareilly</title>
+<meta name="description" content="ANA College CSE industrial training report &amp; PPT guide, in AKTU (Dr. A.P.J. Abdul Kalam Technical University) format.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep-navy:#101d38;
+    --navy-2:#182b52;
+    --ana-red:#e0342c;
+    --aktu-maroon:#7a2331;
+    --sky-glass:#bfe3f0;
+    --gold-flame:#f2b705;
+    --paper:#f7f4ec;
+    --ink:#101d38;
+    --ink-soft:#4a5578;
+    --glass-fill: rgba(255,255,255,0.10);
+    --glass-fill-strong: rgba(255,255,255,0.16);
+    --glass-border: rgba(255,255,255,0.35);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow-glass: 0 8px 32px rgba(8,14,32,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--paper);
+    background:
+      radial-gradient(1100px 700px at 12% -10%, rgba(224,52,44,0.28), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, rgba(242,183,5,0.16), transparent 55%),
+      radial-gradient(1200px 900px at 50% 120%, rgba(191,227,240,0.14), transparent 60%),
+      linear-gradient(180deg, var(--deep-navy) 0%, var(--navy-2) 45%, var(--deep-navy) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--gold-flame); color:var(--deep-navy);}
+
+  /* floating ambient blobs */
+  .blob{
+    position:fixed; border-radius:50%; filter:blur(60px); z-index:0; pointer-events:none;
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .blob.a{width:420px;height:420px; background:rgba(224,52,44,0.22); top:-120px; left:-100px;}
+  .blob.b{width:360px;height:360px; background:rgba(242,183,5,0.18); top:40%; right:-140px; animation-delay:-6s;}
+  .blob.c{width:300px;height:300px; background:rgba(191,227,240,0.20); bottom:-100px; left:30%; animation-delay:-12s;}
+  @keyframes drift{
+    0%{ transform:translate(0,0) scale(1); }
+    100%{ transform:translate(30px,-40px) scale(1.12); }
+  }
+
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+
+  /* NAV */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    background:rgba(16,29,56,0.55);
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .topbar-inner{
+    max-width:1080px; margin:0 auto; padding:12px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brandline{display:flex; align-items:center; gap:12px;}
+  .brandline img{height:38px; width:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35));}
+  .brandline .div{width:1px; height:28px; background:rgba(255,255,255,0.25);}
+  .brandline .name{font-family:'Fraunces',serif; font-size:15px; font-weight:600; letter-spacing:0.2px;}
+  .brandline .name small{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; color:var(--sky-glass); text-transform:uppercase; opacity:0.85;}
+  .navlinks{display:flex; gap:18px; font-size:13px; font-weight:500;}
+  .navlinks a{text-decoration:none; color:rgba(247,244,236,0.75); transition:color .2s;}
+  .navlinks a:hover{color:var(--gold-flame);}
+  .print-btn{
+    border:1px solid var(--glass-border); background:var(--glass-fill);
+    color:var(--paper); font-family:'Inter',sans-serif; font-weight:600; font-size:13px;
+    padding:8px 16px; border-radius:999px; cursor:pointer; backdrop-filter:blur(6px);
+    transition:transform .18s ease, background .18s ease;
+  }
+  .print-btn:hover{transform:translateY(-1px); background:var(--glass-fill-strong);}
+
+  /* HERO */
+  .hero{padding:76px 0 40px; text-align:center; position:relative;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--sky-glass); background:var(--glass-fill); border:1px solid var(--glass-border);
+    padding:8px 16px; border-radius:999px; backdrop-filter:blur(10px);
+    animation: fadeUp .8s ease both;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--gold-flame); box-shadow:0 0 8px var(--gold-flame);}
+  h1.title{
+    font-family:'Fraunces',serif; font-weight:600; line-height:1.04;
+    font-size:clamp(34px, 6vw, 68px); margin:22px 0 14px; letter-spacing:-0.01em;
+    animation: fadeUp .9s ease .05s both;
+  }
+  h1.title em{font-style:normal; color:var(--gold-flame);}
+  .subtitle{
+    max-width:640px; margin:0 auto; color:rgba(247,244,236,0.78); font-size:clamp(15px,2vw,18px); line-height:1.6;
+    animation: fadeUp .9s ease .12s both;
+  }
+  .subtitle strong{color:var(--paper);}
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Stat strip */
+  .stats{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:44px 0 8px;
+    animation: fadeUp 1s ease .2s both;
+  }
+  .stat-card{
+    background:var(--glass-fill); border:1px solid var(--glass-border); border-radius:var(--radius-md);
+    padding:16px 12px; text-align:center; backdrop-filter:blur(16px) saturate(150%);
+    box-shadow: var(--shadow-glass);
+    transition: transform .25s ease, background .25s ease;
+  }
+  .stat-card:hover{ transform:translateY(-4px); background:var(--glass-fill-strong); }
+  .stat-card .num{font-family:'Fraunces',serif; font-size:clamp(18px,2.4vw,26px); font-weight:600; color:var(--gold-flame);}
+  .stat-card .lbl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(247,244,236,0.7); margin-top:4px;}
+
+  /* SECTION SHELL */
+  section{padding:64px 0;}
+  .section-head{margin-bottom:32px; text-align:left;}
+  .kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--gold-flame); margin-bottom:10px; display:block;
+  }
+  h2{
+    font-family:'Fraunces',serif; font-size:clamp(24px,3.4vw,38px); font-weight:600; margin:0 0 8px; letter-spacing:-0.01em;
+  }
+  .lede{color:rgba(247,244,236,0.72); max-width:680px; font-size:15.5px; line-height:1.65;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* GLASS CARD BASE */
+  .glass{
+    background:var(--glass-fill);
+    border:1px solid var(--glass-border);
+    border-radius:var(--radius-lg);
+    backdrop-filter:blur(20px) saturate(160%);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    box-shadow:var(--shadow-glass);
+  }
+
+  /* ===== SIGNATURE: STACKED CHAPTER CARDS ===== */
+  .spine-wrap{
+    perspective:1400px; padding:20px 0 10px; margin-top:8px;
+  }
+  .spine{
+    position:relative; height:300px; display:flex; align-items:center; justify-content:center;
+  }
+  .leaf{
+    position:absolute; width:230px; height:150px; border-radius:16px;
+    background:linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+    border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter:blur(14px) saturate(160%);
+    box-shadow:0 12px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3);
+    display:flex; flex-direction:column; justify-content:space-between; padding:16px 18px;
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+    animation: leafIn 1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .leaf .n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold-flame); letter-spacing:0.08em;}
+  .leaf .t{font-family:'Fraunces',serif; font-size:16px; font-weight:600; line-height:1.2;}
+  @keyframes leafIn{ from{opacity:0; transform: translateY(40px) rotate(0deg) scale(.9);} }
+  .spine-wrap:hover .leaf{ }
+  .leaf:nth-child(1){ transform: translateX(-160px) rotate(-14deg) translateY(6px); z-index:1;}
+  .leaf:nth-child(2){ transform: translateX(-80px) rotate(-7deg) translateY(-4px); z-index:2;}
+  .leaf:nth-child(3){ transform: translateX(0) rotate(0deg) translateY(-14px); z-index:4;}
+  .leaf:nth-child(4){ transform: translateX(80px) rotate(7deg) translateY(-4px); z-index:2;}
+  .leaf:nth-child(5){ transform: translateX(160px) rotate(14deg) translateY(6px); z-index:1;}
+  .spine-wrap:hover .leaf:nth-child(1){ transform: translateX(-190px) rotate(-18deg) translateY(-4px); }
+  .spine-wrap:hover .leaf:nth-child(2){ transform: translateX(-95px) rotate(-9deg) translateY(-14px); }
+  .spine-wrap:hover .leaf:nth-child(3){ transform: translateX(0) rotate(0deg) translateY(-26px); }
+  .spine-wrap:hover .leaf:nth-child(4){ transform: translateX(95px) rotate(9deg) translateY(-14px); }
+  .spine-wrap:hover .leaf:nth-child(5){ transform: translateX(190px) rotate(18deg) translateY(-4px); }
+
+  /* REPORT STRUCTURE GRID */
+  .struct-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+  }
+  .struct-card{
+    padding:20px; border-radius:var(--radius-md); position:relative; overflow:hidden;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .struct-card:hover{transform:translateY(-5px); background:var(--glass-fill-strong);}
+  .struct-card .num{
+    font-family:'Fraunces',serif; font-size:30px; font-weight:600; color:var(--gold-flame); opacity:0.85; line-height:1;
+  }
+  .struct-card h3{font-size:16px; margin:10px 0 6px; font-family:'Inter',sans-serif; font-weight:700;}
+  .struct-card p{font-size:13px; color:rgba(247,244,236,0.68); margin:0; line-height:1.5;}
+  .struct-card .tag{
+    position:absolute; top:16px; right:16px; font-family:'IBM Plex Mono',monospace; font-size:9.5px;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--sky-glass); opacity:0.75;
+  }
+
+  /* PPT chip timeline */
+  .ppt-rail{
+    display:flex; gap:12px; overflow-x:auto; padding:6px 2px 18px; scroll-snap-type:x proximity;
+  }
+  .ppt-rail::-webkit-scrollbar{height:6px;}
+  .ppt-rail::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.25); border-radius:6px;}
+  .ppt-chip{
+    scroll-snap-align:start; min-width:168px; flex:0 0 auto; padding:18px 16px; border-radius:var(--radius-md);
+    display:flex; flex-direction:column; gap:8px; transition:transform .25s ease, background .25s ease;
+  }
+  .ppt-chip:hover{transform:translateY(-4px); background:var(--glass-fill-strong);}
+  .ppt-chip .slide-no{
+    width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--ana-red), var(--aktu-maroon));
+    display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    box-shadow:0 4px 12px rgba(224,52,44,0.4);
+  }
+  .ppt-chip .slide-t{font-weight:700; font-size:14px;}
+  .ppt-chip .slide-d{font-size:12px; color:rgba(247,244,236,0.65); line-height:1.4;}
+
+  /* FORMATTING RULES TABLE */
+  .rules{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;
+  }
+  .rule{padding:18px 20px; border-radius:var(--radius-md);}
+  .rule .k{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--sky-glass); margin-bottom:6px; display:block;}
+  .rule .v{font-weight:700; font-size:15px;}
+
+  /* CHAPTER ACCORDION */
+  .chapters{display:flex; flex-direction:column; gap:12px;}
+  .chapter{
+    border-radius:var(--radius-md); overflow:hidden;
+  }
+  .chapter summary{
+    list-style:none; cursor:pointer; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px;
+    font-weight:700; font-size:15px;
+  }
+  .chapter summary::-webkit-details-marker{display:none;}
+  .chapter summary .plus{
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center;
+    font-size:16px; flex:0 0 auto; transition:transform .3s ease; color:var(--gold-flame);
+  }
+  .chapter[open] summary .plus{transform:rotate(45deg);}
+  .chapter .body{padding:0 22px 20px; color:rgba(247,244,236,0.75); font-size:14px; line-height:1.7;}
+  .chapter .body ul{margin:8px 0; padding-left:20px;}
+  .chapter .pages{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--sky-glass); font-weight:400;}
+
+  /* MISTAKES */
+  .mistakes{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+  .mistake{padding:16px 18px; border-radius:var(--radius-md); display:flex; gap:12px; align-items:flex-start;}
+  .mistake .x{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:rgba(224,52,44,0.25); border:1px solid rgba(224,52,44,0.5);
+    display:flex; align-items:center; justify-content:center; font-size:13px; color:#ffb3af; font-weight:700;
+  }
+  .mistake h4{margin:0 0 4px; font-size:14px;}
+  .mistake p{margin:0; font-size:12.5px; color:rgba(247,244,236,0.65); line-height:1.5;}
+
+  /* TIMELINE */
+  .tl{position:relative; padding-left:26px;}
+  .tl::before{content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:linear-gradient(180deg, var(--gold-flame), var(--ana-red));}
+  .tl-item{position:relative; padding-bottom:22px;}
+  .tl-item::before{content:""; position:absolute; left:-26px; top:2px; width:12px; height:12px; border-radius:50%; background:var(--gold-flame); box-shadow:0 0 0 4px rgba(242,183,5,0.2);}
+  .tl-item .day{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold-flame); text-transform:uppercase; letter-spacing:0.08em;}
+  .tl-item .task{font-size:14px; margin-top:3px; color:rgba(247,244,236,0.85);}
+
+  /* VIVA */
+  .viva-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .viva-card{padding:22px;}
+  .viva-card h4{margin:0 0 12px; font-family:'Fraunces',serif; font-size:17px;}
+  .viva-card ol{margin:0; padding-left:20px; font-size:13.5px; color:rgba(247,244,236,0.75); line-height:1.85;}
+
+  /* CTA FOOTER */
+  .cta{
+    text-align:center; padding:56px 32px; border-radius:32px; position:relative; overflow:hidden;
+  }
+  .cta::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(500px 220px at 50% 0%, rgba(242,183,5,0.25), transparent 70%);
+  }
+  .cta h2{position:relative;}
+  .cta p{position:relative; color:rgba(247,244,236,0.75); max-width:520px; margin:8px auto 24px;}
+  .cta-actions{position:relative; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    padding:12px 26px; border-radius:999px; font-weight:700; font-size:14px; cursor:pointer; border:1px solid transparent;
+    transition:transform .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.primary{background:linear-gradient(135deg, var(--ana-red), var(--aktu-maroon)); color:#fff; box-shadow:0 10px 26px rgba(224,52,44,0.35);}
+  .btn.ghost{background:var(--glass-fill); border:1px solid var(--glass-border); color:var(--paper);}
+
+  footer{padding:36px 0 60px; text-align:center;}
+  .foot-logos{display:flex; align-items:center; justify-content:center; gap:18px; margin-bottom:14px;}
+  .foot-logos img{height:44px;}
+  footer .addr{font-size:12.5px; color:rgba(247,244,236,0.55); font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em;}
+
+  /* RESPONSIVE */
+  @media (max-width: 860px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .struct-grid{grid-template-columns:repeat(2,1fr);}
+    .mistakes{grid-template-columns:1fr;}
+    .viva-grid{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+    .leaf{width:150px; height:110px; padding:10px 12px;}
+    .leaf .t{font-size:12px;}
+    .spine{height:220px;}
+  }
+  @media (max-width: 560px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .struct-grid{grid-template-columns:1fr 1fr;}
+    .hero{padding:56px 0 24px;}
+  }
+
+  /* REDUCED MOTION */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* PRINT */
+  @media print{
+    body{background:#fff !important; color:#101d38 !important;}
+    .blob, .topbar, .spine-wrap, .ppt-rail::-webkit-scrollbar, .cta, footer .print-btn{display:none !important;}
+    .glass, .stat-card, .struct-card, .ppt-chip, .rule, .chapter, .mistake, .viva-card, .cta{
+      background:#fff !important; border:1px solid #ccc !important; box-shadow:none !important;
+      backdrop-filter:none !important; -webkit-backdrop-filter:none !important; color:#101d38 !important;
+    }
+    h1,h2,h3,h4,.title,.leaf .t{color:#101d38 !important;}
+    .kicker, .eyebrow, .num, .n{color:var(--aktu-maroon) !important;}
+    section{page-break-inside:avoid; padding:24px 0;}
+    .lede, .subtitle, p{color:#333 !important;}
+    a{text-decoration:none; color:#101d38 !important;}
+    .reveal{opacity:1 !important; transform:none !important;}
+    .chapter .body{display:block !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="blob a"></div>
+<div class="blob b"></div>
+<div class="blob c"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brandline">
+      <img src="ana-logo.png" alt="ANA College logo">
+      <div class="div"></div>
+      <img src="aktu-logo.png" alt="AKTU logo">
+      <div class="name">Industrial Training Report Guide<small>ANA College · CSE · Bareilly</small></div>
+    </div>
+    <div class="navlinks">
+      <a href="#structure">Report Structure</a>
+      <a href="#ppt">PPT Structure</a>
+      <a href="#chapters">Chapter Guide</a>
+      <a href="#mistakes">Mistakes</a>
+      <a href="#viva">Viva Prep</a>
+    </div>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span> AKTU-compliant · Dr. A.P.J. Abdul Kalam Technical University, Lucknow</span>
+    <h1 class="title">Write a report your<br><em>evaluator</em> actually respects.</h1>
+    <p class="subtitle">A complete, chapter-wise blueprint for the <strong>Industrial Training Report</strong> and accompanying presentation, built for <strong>ANA College CSE students, Bareilly</strong> — formatted exactly to AKTU submission requirements.</p>
+
+    <div class="spine-wrap">
+      <div class="spine">
+        <div class="leaf glass" style="animation-delay:.05s"><span class="n">01</span><span class="t">Cover Page</span></div>
+        <div class="leaf glass" style="animation-delay:.15s"><span class="n">06</span><span class="t">Introduction</span></div>
+        <div class="leaf glass" style="animation-delay:.25s"><span class="n">10</span><span class="t">Project Details</span></div>
+        <div class="leaf glass" style="animation-delay:.35s"><span class="n">14</span><span class="t">Learning Outcomes</span></div>
+        <div class="leaf glass" style="animation-delay:.45s"><span class="n">17</span><span class="t">Annexure</span></div>
+      </div>
+    </div>
+
+    <div class="stats reveal">
+      <div class="stat-card"><div class="num">60–70</div><div class="lbl">Pages (sweet spot)</div></div>
+      <div class="stat-card"><div class="num">TNR 12</div><div class="lbl">Body font</div></div>
+      <div class="stat-card"><div class="num">1.5×</div><div class="lbl">Line spacing</div></div>
+      <div class="stat-card"><div class="num">1.5″ / 1″</div><div class="lbl">Binding / outer margin</div></div>
+      <div class="stat-card"><div class="num">i, ii… → 1, 2…</div><div class="lbl">Page numbering</div></div>
+    </div>
+  </section>
+
+  <!-- REPORT STRUCTURE -->
+  <section id="structure">
+    <div class="section-head reveal">
+      <span class="kicker">Report · 17 Sections</span>
+      <h2>The ANA CSE Report Structure</h2>
+      <p class="lede">This is the exact section order your department expects. Follow it top to bottom — evaluators check for this sequence before they read a single word.</p>
+    </div>
+    <div class="struct-grid reveal" id="structGrid"></div>
+  </section>
+
+  <!-- PPT STRUCTURE -->
+  <section id="ppt">
+    <div class="section-head reveal">
+      <span class="kicker">Presentation · 10–12 Slides</span>
+      <h2>Viva-Day Slide Deck</h2>
+      <p class="lede">Keep the deck lean — one idea per slide. Scroll to see the recommended order for your defense presentation.</p>
+    </div>
+    <div class="ppt-rail reveal" id="pptRail"></div>
+  </section>
+
+  <!-- FORMATTING RULES -->
+  <section id="format">
+    <div class="section-head reveal">
+      <span class="kicker">Formatting</span>
+      <h2>Layout Rules AKTU Checks First</h2>
+      <p class="lede">Before content, evaluators skim for consistent formatting. Nail these and half the battle is won.</p>
+    </div>
+    <div class="rules reveal">
+      <div class="rule glass"><span class="k">Font</span><span class="v">Times New Roman — 12pt body, 14pt bold headings</span></div>
+      <div class="rule glass"><span class="k">Spacing</span><span class="v">1.5 line spacing throughout</span></div>
+      <div class="rule glass"><span class="k">Paper</span><span class="v">A4</span></div>
+      <div class="rule glass"><span class="k">Margins</span><span class="v">1.5″ left (binding), 1″ top/right/bottom</span></div>
+      <div class="rule glass"><span class="k">Binding</span><span class="v">Hard-bound, dark cover (confirm colour with department)</span></div>
+      <div class="rule glass"><span class="k">Numbering</span><span class="v">Roman for prelims, Arabic from Chapter 1</span></div>
+    </div>
+  </section>
+
+  <!-- CHAPTERS -->
+  <section id="chapters">
+    <div class="section-head reveal">
+      <span class="kicker">Chapter-wise Guide</span>
+      <h2>What Goes Inside Each Chapter</h2>
+      <p class="lede">Tap a chapter to expand it. These map directly onto sections 6–15 of your ANA report structure.</p>
+    </div>
+    <div class="chapters reveal" id="chapterList"></div>
+  </section>
+
+  <!-- MISTAKES -->
+  <section id="mistakes">
+    <div class="section-head reveal">
+      <span class="kicker">Avoid These</span>
+      <h2>Why Reports Lose Marks</h2>
+      <p class="lede">Drawn from patterns evaluators flag most often, in order of frequency.</p>
+    </div>
+    <div class="mistakes reveal" id="mistakeList"></div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="section-head reveal">
+      <span class="kicker">Plan Ahead</span>
+      <h2>A 10-Day Writing Timeline</h2>
+      <p class="lede">Start ten days out and this stops being stressful. Rushed reports read as rushed — evaluators notice.</p>
+    </div>
+    <div class="glass reveal" style="padding:28px 30px;">
+      <div class="tl" id="tlList"></div>
+    </div>
+  </section>
+
+  <!-- VIVA -->
+  <section id="viva">
+    <div class="section-head reveal">
+      <span class="kicker">Oral Defense</span>
+      <h2>Viva Voce Preparation</h2>
+      <p class="lede">Keep your project running on a laptop for the viva — a live demo outweighs any screenshot in the report.</p>
+    </div>
+    <div class="viva-grid reveal">
+      <div class="viva-card glass">
+        <h4>About your training &amp; project</h4>
+        <ol>
+          <li>Summarise your training experience in brief</li>
+          <li>Why this organisation, and why this technology stack</li>
+          <li>Walk through your project in two to three minutes</li>
+          <li>What problem does the project actually solve</li>
+          <li>Explain the architecture end to end</li>
+        </ol>
+      </div>
+      <div class="viva-card glass">
+        <h4>Technical &amp; problem-solving</h4>
+        <ol>
+          <li>SQL vs NoSQL — why you picked one</li>
+          <li>MVC architecture, REST APIs, GET vs POST</li>
+          <li>How authentication and middleware work in your build</li>
+          <li>Biggest challenge faced, and how you solved it</li>
+          <li>How the app would behave under heavy concurrent load</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta glass reveal">
+      <span class="kicker">Ready to submit</span>
+      <h2>Build it chapter by chapter, not the night before.</h2>
+      <p>Use this structure as your working outline. Keep screenshots, ER diagrams and daily notes ready from week one — the report writes itself faster when the evidence already exists.</p>
+      <div class="cta-actions">
+        <button class="btn primary" onclick="window.print()">Print this guide</button>
+        <a class="btn ghost" href="#structure">Back to structure ↑</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-logos">
+    <img src="ana-logo.png" alt="ANA College">
+    <img src="aktu-logo.png" alt="AKTU">
+  </div>
+  <div class="addr">ANA COLLEGE · DEPARTMENT OF CSE · BAREILLY, UTTAR PRADESH · AFFILIATED TO DR. A.P.J. ABDUL KALAM TECHNICAL UNIVERSITY, LUCKNOW</div>
+</footer>
+
+<script>
+  // ---- Data ----
+  const reportStructure = [
+    ["01","Cover Page","Title, name, roll no., branch, college &amp; AKTU affiliation, organisation, duration, both logos.","Prelim"],
+    ["02","Training Certificate","Original certificate from the training organisation, signed and stamped.","Prelim"],
+    ["03","Acknowledgement","Half a page, sincere and in your own words — no copy-paste.","Prelim"],
+    ["04","Declaration","One page stating the report is original and unsubmitted elsewhere.","Prelim"],
+    ["05","Table of Contents","Auto-generated, Roman numerals up to here, Arabic from Chapter 1.","Prelim"],
+    ["06","Introduction","Overview, objectives, scope and motivation for the training.","Ch. 1"],
+    ["07","Company Profile","Organisation background, mission, services, team size.","Ch. 2"],
+    ["08","Organization Structure","Reporting lines, departments, training methodology.","Ch. 2"],
+    ["09","Technologies Used","Every tool and stack element, with purpose and rationale.","Ch. 3"],
+    ["10","Department / Project Details","Problem statement, requirements, design diagrams.","Ch. 4"],
+    ["11","Daily / Weekly Work Performed","A log of tasks — proof of a structured training period.","Ch. 4"],
+    ["12","Skills Learned","Technical and soft skills gained, tied to real tasks.","Ch. 4"],
+    ["13","Challenges Faced","Two or three genuine obstacles and how you resolved them.","Ch. 5"],
+    ["14","Learning Outcomes","How the training met the objectives from Chapter 1.","Ch. 6"],
+    ["15","Conclusion","Summary, honest limitations, and future scope.","Ch. 6"],
+    ["16","References","10–15 sources, consistent citation style.","Refs"],
+    ["17","Annexure","Photographs, certificates, selected source code.","Appendix"]
+  ];
+
+  const pptStructure = [
+    ["01","Title Slide","Report title, your name, roll no., college &amp; AKTU line, both logos."],
+    ["02","About the Company","One-slide profile of the training organisation."],
+    ["03","Training Objectives","Three to five goals you set out to achieve."],
+    ["04","Technologies / Tools Used","Stack overview — frontend, backend, database, tools."],
+    ["05","Project / Work Assigned","What you were asked to build and why it mattered."],
+    ["06","Methodology / Workflow","How the work was planned and executed, step by step."],
+    ["07","Key Learnings","Concrete takeaways, not generic statements."],
+    ["08","Skills Developed","Technical and professional skills gained."],
+    ["09","Challenges &amp; Solutions","One or two real problems and how you fixed them."],
+    ["10","Conclusion","Tie the training back to your career direction."],
+    ["11","Thank You","Contact details and an invitation for questions."]
+  ];
+
+  const chapters = [
+    ["Chapter 1 — Introduction","4–6 pages", `
+      <ul>
+        <li><strong>Overview:</strong> what industrial training is and why AKTU requires it.</li>
+        <li><strong>Objectives:</strong> 5–7 concrete goals, e.g. gaining practical exposure to a stack, understanding the SDLC, building a working application.</li>
+        <li><strong>Scope:</strong> what the report covers, and what it deliberately leaves out.</li>
+        <li><strong>Motivation:</strong> why this technology or domain, and how it connects to your career goals.</li>
+      </ul>`],
+    ["Chapter 2 — Organization Profile","4–6 pages", `
+      <ul>
+        <li>Name, founding year, location, mission, and services offered.</li>
+        <li>If you trained at a smaller institute rather than a large corporation, focus on its specialisation, methodology, and industry alignment — the size of the organisation matters far less than how well you describe it.</li>
+        <li>Infrastructure and tools used, plus how the training itself was structured — schedule, theory-to-practical ratio, milestones.</li>
+      </ul>`],
+    ["Chapter 3 — Technologies Used","8–12 pages", `
+      <ul>
+        <li>Cover every layer: frontend, backend, database, version control, and deployment platform.</li>
+        <li>For each technology: what it is, its relevant features, why it was chosen, and a short illustrative snippet — never a full copy of documentation text.</li>
+        <li>Write descriptions in your own words; evaluators can spot lifted text from official docs instantly.</li>
+      </ul>`],
+    ["Chapter 4 — Project Description","12–18 pages", `
+      <ul>
+        <li><strong>Problem statement</strong> framed as a real need, not just "I built a website."</li>
+        <li><strong>Requirement analysis:</strong> functional, non-functional, hardware and software requirements.</li>
+        <li><strong>System design:</strong> ER diagram, use-case diagram, data-flow diagram, architecture diagram — reports without diagrams consistently lose marks.</li>
+        <li><strong>Database design</strong> and <strong>implementation</strong> walkthrough of key modules with short code snippets.</li>
+        <li><strong>Screenshots:</strong> 10–15, each with a figure number and one-line caption.</li>
+      </ul>`],
+    ["Chapter 5 — Testing","4–6 pages", `
+      <ul>
+        <li>Testing methodology used — unit, integration, or manual acceptance testing.</li>
+        <li>A test-case table: ID, description, input, expected vs actual output, pass/fail — aim for 10–15 cases.</li>
+        <li>Two or three real bugs you hit and how you fixed them.</li>
+      </ul>`],
+    ["Chapter 6 — Conclusion &amp; Future Scope","3–4 pages", `
+      <ul>
+        <li>Tie outcomes back to the objectives set in Chapter 1.</li>
+        <li>State honest limitations — this adds credibility rather than weakening the report.</li>
+        <li>Suggest realistic extensions: new features, better scalability, added platforms.</li>
+      </ul>`]
+  ];
+
+  const mistakes = [
+    ["Copying from the internet","The single most common reason for marks lost — write everything in your own words."],
+    ["Missing diagrams","No ER diagram, use-case diagram, or screenshots means an incomplete project chapter."],
+    ["No page numbers","Small detail, big friction during the viva when evaluators reference specific pages."],
+    ["Inconsistent formatting","Mixed fonts or spacing across chapters reads as careless, even if the content is solid."],
+    ["Wrong length","Below 50 pages looks thin; past 100 pages looks padded. Aim for 60–70."],
+    ["Vague project description","Detail the modules, schema and code enough that the work is verifiable."]
+  ];
+
+  const timeline = [
+    ["Day 1","Set the document template — margins, fonts, numbering. Draft cover page, declaration, acknowledgement."],
+    ["Day 2","Write Chapter 1 (Introduction) and Chapter 2 (Organization Profile)."],
+    ["Day 3–4","Write Chapter 3 (Technologies Used) — the longest technical chapter."],
+    ["Day 5–6","Write Chapter 4 (Project Description); build diagrams and capture screenshots."],
+    ["Day 7","Write Chapter 5 (Testing) with a complete test-case table."],
+    ["Day 8","Write Chapter 6 (Conclusion &amp; Future Scope) and References."],
+    ["Day 9","Write the Abstract last; assemble Table of Contents and lists; proofread."],
+    ["Day 10","Final formatting pass, print, and binding."]
+  ];
+
+  // ---- Render ----
+  const structGrid = document.getElementById('structGrid');
+  reportStructure.forEach(([n,t,d,tag])=>{
+    structGrid.insertAdjacentHTML('beforeend', `
+      <div class="struct-card glass">
+        <span class="tag">${tag}</span>
+        <div class="num">${n}</div>
+        <h3>${t}</h3>
+        <p>${d}</p>
+      </div>`);
+  });
+
+  const pptRail = document.getElementById('pptRail');
+  pptStructure.forEach(([n,t,d])=>{
+    pptRail.insertAdjacentHTML('beforeend', `
+      <div class="ppt-chip glass">
+        <div class="slide-no">${n}</div>
+        <div class="slide-t">${t}</div>
+        <div class="slide-d">${d}</div>
+      </div>`);
+  });
+
+  const chapterList = document.getElementById('chapterList');
+  chapters.forEach(([title,pages,body],i)=>{
+    chapterList.insertAdjacentHTML('beforeend', `
+      <details class="chapter glass" ${i===0?'open':''}>
+        <summary>${title} <span class="pages">${pages}</span><span class="plus">+</span></summary>
+        <div class="body">${body}</div>
+      </details>`);
+  });
+
+  const mistakeList = document.getElementById('mistakeList');
+  mistakes.forEach(([h,p])=>{
+    mistakeList.insertAdjacentHTML('beforeend', `
+      <div class="mistake glass">
+        <div class="x">×</div>
+        <div><h4>${h}</h4><p>${p}</p></div>
+      </div>`);
+  });
+
+  const tlList = document.getElementById('tlList');
+  timeline.forEach(([day,task])=>{
+    tlList.insertAdjacentHTML('beforeend', `
+      <div class="tl-item"><div class="day">${day}</div><div class="task">${task}</div></div>`);
+  });
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
